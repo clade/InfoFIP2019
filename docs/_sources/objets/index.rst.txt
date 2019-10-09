@@ -1,0 +1,464 @@
+============================
+Programmation orientée objet
+============================
+
+Les objets
+==========
+
+Nous avons utilisé ce terme auparavant pour désigner de façon générique
+ce que contient une variable : un nombre, une liste, une chaîne de
+caractère, une fonction, etc. Il est possible en Python de créer des objets dont le
+type est personnalisé. Ces objets auront pour objectif de stocker des
+données et de pouvoir les traiter à l'aide de méthodes que l'on aura définies. 
+
+Nous allons illustrer dans ce chapitre l'utilisation d'objets pour réaliser un
+annuaire personnalisé.
+
+
+Les attributs
+=============
+
+Voici un exemple :
+
+.. testcode::
+
+  class Personne():
+      nom = ""
+
+Que l'on peut utiliser de la façon suivante :
+
+    >>> jean = Personne()
+    >>> jean.nom = "Dupont" # modification de l'attribut
+    >>> jean.prenom = "Jean" # On peut rajouter un attribut
+    >>> print(jean.nom)
+    Dupont
+
+    
+
+Nous avons tout d'abord créé un nouveau type d'objet. Il s'agit du
+type ``Personne``. On appelle cela une *class*. Cette class contient
+pour l'instant un *attribut* : le nom. Pour créer un objet, on
+appelle le nom de la class. On peut lire ou écrire un attribut
+simplement. Cet objet est donc modifiable (*mutable*). On peut aussi rajouter un attribut
+(ici, le prénom) à l'objet. 
+
+Pour cet exemple, nous aurions pu utiliser une liste (ou un tuple)
+pour stocker le nom et le prénom dans une seule variable, mais l'objet
+rend le code beaucoup plus lisible (``jean.nom`` est plus explicite
+que jean[0]). C'est un premier avantage.
+
+
+Les méthodes
+============
+
+Nous avons vu que les attributs permettent de stocker les informations. 
+
+On peut alors imaginer la création de fonctions utilisant ces objets :
+
+.. testcode::
+
+  def bonjour(personne):
+      print("Bonjour", personne.prenom, personne.nom, '!')
+
+Plutôt que de définir une fonction indépendamment de l'objet, il est
+possible d'attacher cette fonction à l'objet. C'est ce qu'on appelle
+une méthode ::
+
+  class Personne():
+      def bonjour(self):
+      	  print("Bonjour", self.prenom, self.nom, '!')
+
+  jean = Personne()
+  jean.nom = "Dupont"
+  jean.prenom = "Jean"
+  jean.bonjour()
+
+
+Toute fonction définie dans le corps de la class est une méthode. Le
+premier argument de la méthode est l'objet lui même que l'on nomme
+conventionnellement ``self``. L'appel d'une méthode se fait de la
+façon suivante : ``objet.nom_methode(tous_les_arguments_sauf_self)``.
+
+On voit ici un deuxième avantage de l'utilisation d'objet : la
+variable contient des fonctions (les méthodes). L'utilisateur de la
+variable ne doit pas ce soucier de la façon de réaliser une
+fonction ni de l'importer. Il fait confiance à la variable qui sait comment
+faire. Ceci permet en particulier d'avoir pour deux variables
+différentes, deux méthodes différentes ayant le même nom. 
+
+
+Méthodes spéciales
+==================
+
+Il existe plusieurs méthodes qui ont des rôles bien précis
+
+Méthode __init__
+----------------
+
+Cette méthode sera appelée automatiquement lors de la création de
+l'objet. On peut l'utiliser pour initialiser des attributs :
+
+.. testcode::
+
+    class Personne():
+        def __init__(self, nom="", prenom=""):
+            self.nom = nom
+            self.prenom = prenom
+        def bonjour(self):
+            print("Bonjour", self.prenom, self.nom, '!')
+
+Ce qui donne : 
+
+    >>> jean = Personne("Dupont", "Jean")
+    >>> jean.bonjour()
+    Bonjour Jean Dupont !
+
+Méthode ``__repr__``
+--------------------
+
+Cette méthode sert a représenter l'objet sous forme d'une chaîne de
+caractère. Elle est utilisé par la fonction ``print`` :
+
+.. testcode::
+
+    class Personne():
+        def __init__(self, nom="", prenom=""):
+            self.nom = nom
+            self.prenom = prenom
+        def bonjour(self):
+            print("Bonjour", self.prenom, self.nom, '!')
+        def __repr__(self):
+            return self.prenom + " " + self.nom 
+
+Ce qui donne:
+
+    >>> jean = Personne(prenom="Jean", nom="Dupont")
+    >>> print(jean)
+    Jean Dupont
+
+.. note::
+
+    Il existe aussi la méthode ``__str__`` qui par défaut renverra la même chose que ``__repr__``. Cette méthode peut être utlisée pour 
+    renvoyé une chaîne plus simple est lisible que ``__repr__``. Par exemple, pour une chaîne de caractère, le ``__repr__`` rajoute des guillemets pour signifier qu'il n's'agit d'une chaîne de caractère, mais pas le ``__str__``:
+
+    .. doctest::
+
+        >>> s = 'Pierre'
+        >>> s.__repr__()=="'Pierre'"
+        True
+        >>> s.__str__()=='Pierre'
+        True
+     
+
+
+
+Exemple
+=======
+
+On veut pouvoir créer des liens d'amitié (à la facebook) entre les
+personnes. Ainsi chaque personnes a un ensemble d'amis. Cette ensemble,
+initialement vide, est créé au moment de l'initialisation de l'objet.
+Il faut alors pouvoir rajouter un ami ou afficher la liste des amis :
+
+.. testcode::
+
+    class Personne():
+        def __init__(self, nom="", prenom=""):
+            self.nom = nom
+            self.prenom = prenom
+            self.liste_amis = set()
+        def bonjour(self):
+            print("Bonjour", self.prenom, self.nom, '!')
+        def ajoute_ami(self, ami):
+            self.liste_amis.add(ami)
+        def affiche_amis(self):
+            print("Les amis de", self.__repr__(), "sont :")
+            for ami in self.liste_amis:
+                print(ami)
+        def __repr__(self):
+            return self.prenom + " " + self.nom 
+
+Que l'on utilise de la façon suivante : 
+
+    >>> jean = Personne(prenom="Jean", nom="Dupont")
+    >>> jacques = Personne(prenom="Jacques", nom="Dupond")
+    >>> pierre = Personne(prenom="Pierre", nom="Martin")
+    >>> jean.ajoute_ami(jacques)
+    >>> jean.ajoute_ami(pierre)
+
+    >>> jean.affiche_amis()  # doctest: +SKIP
+    Les amis de Jean Dupont sont :
+    Jacques Dupond
+    Pierre Martin
+
+
+.. exercice::
+
+    Les amis de mes amis sont mes amis ! Écrire (en trois lignes) une
+    méthode qui ajoute automatiquement les amis de mes amis à mes amis.
+
+Héritage
+========
+
+C'est le dernier point important concernant les objets en Python. Nous
+avons vu comment à l'aide du mot clé ``class`` définir une classe
+d'objet. Dans cette classe, nous avons défini l'ensemble des
+attributs et des méthodes. Il est cependant possible d'hériter des
+méthodes d'une autre classe - ce qui permet d'avoir plusieurs classes
+possédant des méthodes identiques.
+
+Continuons notre exemple : suivant la nationalité, je souhaite pouvoir
+écrire un message de bonjour différent. Pour cela, je vais créer une
+classe PersonneFrancaise et PersonneAnglaise :
+
+.. testcode::
+
+  class Personne():
+      def __init__(self, nom="", prenom=""):
+      	  self.nom = nom
+          self.prenom = prenom
+          self.liste_ami = set()
+      def ajoute_ami(self, ami):
+          self.liste_ami.add(ami)
+      def affiche_amis(self):
+      	  print("Les amis de", self.__repr__(), "sont :")
+      	  for ami in self.liste_amis:
+              print(ami)
+      def __repr__(self):
+      	  return self.prenom + " " + self.nom 
+
+  class PersonneAnglaise(Personne):
+      def bonjour(self):
+      	  print("Hello", self.prenom, self.nom, '!')
+
+  class PersonneFrancaise(Personne):
+      def bonjour(self):
+      	  print("Bonjour", self.prenom, self.nom, '!')
+
+Ce qui donne :
+
+    >>> john = PersonneAnglaise(prenom="John", nom="Dupont")
+    >>> john.bonjour()
+    Hello John Dupont !
+
+
+Du côté de l'utilisateur, celui qui reçoit la variable ``john`` ne veut pas savoir si
+``john`` est français ou anglais, il ne veut même pas savoir comment
+dire bonjour à un anglais. Par contre, il sait que pour dire bonjour à
+john, il suffit de faire ``john.bonjour()``.
+
+Du côté du programmeur, on applique ici le principe DRY (Don't Repeat Yourself), ou le principe
+de ne pas faire du copier-coller dans son code. Les méthodes qui sont communes ne sont pas dupliquées. 
+
+
+Autres méthodes spéciales
+=========================
+
+Opérateurs binaires
+-------------------
+
+Les méthodes __add__, __mul__, __sub__, __truediv__ sont utilisées pour implémenter le ``+``, ``*``, ``-`` et ``/`` entre deux objets. Lorsque l'on fait par exemple ``a+b``, alors l'interpréteur va appeler ``a.__add__(b)``. Ceci nous permet donc de donner le sens que l'on souhaite à n'importe quel opérateur binaire. 
+
+D'autres méthodes spéciales existe pour tous les opérateurs binaires (c.f. https://docs.python.org/3/reference/datamodel.html). 
+
+Ceci permet, par exemple d'imiter un type numérique - mais peut être utilisé pour n'importe quel autre objet pour simplifier la création d'un objet. C'est par exemple ce que l'on voit implicitement lorsque l'on fait un ``+`` entre deux listes ou deux chaînes de caractères. 
+
+Notons enfin que pour toutes méthodes, il existe une version réciproque (__radd__, __rmul__, etc.). Cette méthode est appelée lorsque la première méthode échoue (concrètement en revoyant NotImplemented). Par exemple ``a+b`` appelle d'abord ``a.__add__(b)``. Si cette méthode renvoie NotImplemented alors ``b.__radd__(a)`` est appelé. Ceci permet donc à un nouveau type de donnée de fonctionner avec un autre type, sans que celui-ci soit modifié. Par exemple la syntaxe suivante fonctionne ``2*'pa'``, on se doute bien que ce n'est pas la type int qui implémente sa multiplication par une chaîne de caractère, mais bien la chaîne de caractère qui sait quoi faire lorsqu'elle est multipliée par un entier. 
+
+Émulation des conteneur
+-----------------------
+
+Il existe plusieurs type de conteneur en Python, par exemple les listes, les tuples, les dictionnaires, etc. Ils on commun que l'on peut extraire un élément à l'aide de la syntaxe ``a[key]``. On peut aussi vouloir changer un élément ``a[key] = val`` ou l'effacer ``del a[key]``. Toutes ces syntaxes correspondent à des méthode de l'objet ``a``. Ainsi :
+
+* ``a[key]`` correspond à a.__getitem__(self, key)
+* ``a[key] = val`` correspond à a.__setitem__(self, key, val)
+* ``del a[key]`` correspond à a.__delitem__(self, key)
+* ``len(a)`` correspond à a.__len__(self)
+* ``for elm in a`` correspond à ``for elm in a.__iter__()``
+
+Attribut et property
+====================
+
+Il est important de distinguer les attributs de classe et le attribut d'objet. Lorsque l'on définit une classe, tous les attributs sont des attributs de la classe. Lorsque l'on assigne un attribut à un objet, on crée alors un attribut pour l'objet. Concrètement, cet attribut est stocké dans un dictionnaire créé avec l'objet. Lorsque l'on veut obtenir un attribut, l'interpréteur renvoie l'attribut de l'objet si celui ci existe et l'attribut de la classe de l'objet sinon. 
+
+.. testcode::
+
+  class Test():
+      a = 1
+      b = []
+      c = []
+      def __init__(self, val):
+          self.b = [val]
+          self.c.append(val)
+
+  test1 = Test(10)
+  test1.c.append(3)
+  test1.b.append(3)
+  test2 = Test(20)
+
+Ce qui donne :
+
+    >>> test2.b
+    [20]
+    >>> test2.c
+    [10, 3, 20]
+
+Dans ce cas, ``test1.a`` : attribut de la classe; ``test1.b`` attribut de l'objet après le ``__init__``; ``test1.c`` attribut de la classe. 
+
+Nous avons vu ici deux mécanismes différents lorsque l'on fait ``obj.attr`` : si ``obj.__dict__`` possède la clé ``"attr"`` alors on renvoie ``obj.__dict__["attr"]``, sinon on appelle ``type(obj).attr``. Il existe un troisième mécanisme : si aucune des deux méthodes en fonctionne, et si l'objet possède une méthode __getattr__ alors cette méthode est appelée:
+
+.. testcode::
+
+    class Test():
+        a = 1
+        def __init__(self):
+            self.b = 2
+
+        def __getattr__(self, key):
+            if key=='c':
+                return 3
+            raise AttributeError
+
+    t = Test()
+
+Ce qui donne:
+    
+    >>> t.a
+    1
+    >>> t.b
+    2
+    >>> t.c
+    3
+
+Un quatrième mécanisme existe, il s'agit des property. Une poperty est une fonction qui est appelé lorsque l'on accède à un attribut. Lorsqu'une classe possède un attribut qui est une property, alors c'est ce résultat qui est renvoyé à la place de l'attribut. Par exemple:
+
+.. testcode::
+
+    class Test():
+        def __init__(self, nom, prenom=""):
+            self.prenom = prenom
+            self.nom = nom
+
+        @property
+        def nom_complet(self):
+            if self.prenom:
+                return self.prenom + ' '+ self.nom
+            return self.nom
+
+    t = Test('Dupond', 'Jean')
+
+Ce qui donne:
+
+    >>> t.nom_complet
+    'Jean Dupond'
+
+De façon similaire, l'affectation d'un objet à un attribut peut être spécifié à l'aide de la méthode ``__setattr__``, ou d'un ``setter`` dans le cas d'une property. On peut par exemple utiliser ce mécanisme pour protéger un attribut : 
+
+.. testcode::
+
+    class Test():
+        def __init__(self, percent):
+            self.percent = percent
+
+        @property
+        def percent(self):
+            return self._percent
+
+        @percent.setter
+        def percent(self, val):
+            if val<0 or val>100:
+                raise Exception('Percent should be between 0 and 100')
+            self._percent = val
+
+    t = Test(10)
+
+.. note:: 
+
+    Il existe un convention en Python qui est que les attributs commençant par une underscore sont privés, c'est à dire qu'ils ne doivent pas être utilisés en dehors de la définition de la classe. A la différence d'autre langage où des attributs privés sont contraint par le compilateur, il s'agit ici uniquement d'un convention. Dans l'exemple suivant, on peut toujours appeler ``t._percent`` et même faire librement ``t._percent = 200``. 
+
+
+
+
+Exemple
+=======
+
+Voici un exemple de simulation d'un nombre complexe ::
+
+    from math import atan2
+
+    class Complex(object):
+        def __init__(self, partie_reelle, partie_imaginaire):
+            self.real = partie_reelle
+            self.ima = partie_imaginaire
+        
+        def display(self):
+            print('{}+{}i'.format(self.real, self.ima))
+
+        def __str__(self):
+            if self.ima>0:
+                return '{}+{}i'.format(self.real, self.ima)
+            else:
+                return '{}-{}i'.format(self.real, -self.ima)
+        
+        def __repr__(self):
+            return "Complexe({}, {})".format(self.real, self.ima)
+        
+        def __add__(self, other):
+            if isinstance(other, Complex):
+                return Complex(self.real+other.real,
+                              self.ima+other.ima)
+            else:
+                return Complex(self.real+other,
+                              self.ima)
+        
+        def __radd__(self, other):
+            return self + other
+        
+        # idem pour __mul__, __truediv__, __sub__, __pow__, __neg__
+        # et leur reciproque
+
+        def conj(self):
+            return Complex(self.real, -self.ima)
+        
+        @property
+        def theta(self):
+            return atan2(self.ima, self.real)
+        
+    class ImaginairePur(Complex):
+        def __init__(self, val):
+            self.real = 0
+            self.ima = val
+
+        def __str__(self):
+            return '{}i'.format(self.ima)
+
+
+
+
+
+Quand faut-il utiliser des objets ?
+===================================
+
+L'idée générale de l'utilisation d'objet est de supprimer la difficulté pour l'utilisateur et de la déplacer au niveau de la
+définition des méthodes de la classe. Dans cette méthode, on aura accès à la plupart des paramètres nécessaires pour exécuter une action. 
+
+La difficulté n'est généralement pas de savoir quand il faut utiliser une objet (le réponse est tout le temps!), mais de réussir à identifier dans un problème quels sont les objets à définir. 
+
+Les objets permettent souvent de décrire des objets réel dont la classe est le concept. Voici quelques exemples : 
+
+* Un livre: C'est un objet qui possède comme attribut : un titre, auteur, ... . Mais aussi une liste de chapitres, lesquels ont un titre et des parties, ... On peut alors imaginer une méthode qui renvoie un sommaire du livre (méthode avec comme argument la profondeur que l'on souhaite du sommaire). Une méthode qui renvoie le nombre de chapitre, ... 
+
+* Un circuit électronique : il y a des composants électronique et des connexions entre les composants. Pour les composants, on aura plusieurs classes qui définiront chacune un type de composant (dipôle linéaire passif, transistor, amplificateur opérationnel, ...). Chaque composant aura des pattes (un autre type d'objet). Une connexion rassemblera les pattes des composants. L'objectif de ces objets est de décrire complètement le circuit électronique. On pourra alors imaginer des méthodes plus ou moins complexes : faire une liste triée des composants que l'on devra acheter ou calculer la réponse impulsionnel du circuit...
+
+* Un instrument de mesure : par exemple un oscilloscope, il aura des méthodes pour changer l'échelle verticale ou horizontale, récupérer la courbe, etc. 
+
+* On souhaite modéliser le système solaire : on pourra créer une classe Planete et une classe Systeme. Une planète contient un nom et une masse. Le système enregistrera pour chaque planète qu'on lui ajoute sa position et sa vitesse. Le système sera capable d'être représenté graphiquement. Il pourra créer l'ensemble d'équation différentiel qui sera ensuite utilisé par un solveur afin de connaître la position des planète à un autre instant. Dans cet exemple, l'utilisation d'objet est d'aucune utilité pour la résolution en elle même du problème (qui est un exercice classique). Par contre, elle permet de fournir une interface avec l'utilisateur qui va facilité l'entrée des paramètres ou leur visualisation. 
+
+* Les objets sont utilisés pour décrire des structures complexes dans un ordinateur : par exemple la fenêtre de l'interface graphique d'une application est un objet (qui contient d'autres objets comme les boutons, les menus, ...). En python, Matplotlib représente une figure par un objet. 
+
+* En physique, on pourra utiliser un objet pour représenter l'ensemble des paramètres d'un problème ou les résultats d'une mesure. Par exemple, l'image prise par un télescope sera un objet qui contiendra l'image, mais aussi le moment de la prise de vue, sa durée, l'orientation du télescope. Cet objet devra pouvoir être enregistré sur un fichier et créé à partir de ce fichier. Une autre classe permettra de faire une analyse de cette image. Elle s'initialisera avec une image et aura des méthodes pour faire l'analyse (appliquer des filtres, mesurer des distances entre étoiles, ...). 
+
+
+.. toctree::
+   :maxdepth: 2
+

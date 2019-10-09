@@ -1,0 +1,70 @@
+Autres librairies scientifiques
+===============================
+
+Scipy
+-----
+
+La librairie scipy regroupe un grand nombre d'algorithme utilisé pour résoudre des problèmes numériques. Elle vient en complément de numpy. Numpy va contenir uniquement des algorithme de base alors que scipy se veut être exhaustive. On trouvera dans scipy, en autre:
+
+* Toutes les fonctions spéciales (bessel, elliptique, ...)
+* Des algorithmes d'optimisation (minimum, moindre carré, ...)
+* Des algorithmes pour résoudre des équations différentielles (méthodes avec pas adaptatif, ...)
+* Algèbre linéaire (diagonalisation, ...)
+* Traitement du signal (densité spectrale de puissance, filtre numérique, ...)
+
+Beaucoup d'algorithme de scipy (et de numpy) sont issus de librairie open source écrite en C ou Fortran et optimisées depuis plusieurs années. Il est illusoire d'essayer de faire mieux pour résoudre un problème générique. 
+
+
+Sympy
+-----
+
+Sympy est la librairie de calcul formel de référence pour Python. Elle permet de manipuler des expressions algébriques et de faire des opération dessus. Elle n'est pas au niveau de Mathematica, mais fonctionne bien. 
+
+Voici quelques exemples :
+
+    from sympy import *
+    init_printing() # Pour un affichage graphique
+
+    x = Symbol('x')
+    a = exp(-x**2)
+    pprint(a.series(x))   
+    pprint(a.diff(x))
+ 
+
+On peut facilement utiliser la syntaxe de Python pour générer des expressions sympy:
+
+    >>> from sympy import *
+    >>> # polynome d'ordre 10
+    >>> res = 0
+    >>> x = Symbol('x')
+    >>> for i in range(8):
+    ...     coef = Symbol('a_{}'.format(i))
+    ...     res += coef*x**i
+    >>> pprint(res)
+                       2        3        4        5        6        7
+    a_0 + a_1*x + a_2*x  + a_3*x  + a_4*x  + a_5*x  + a_6*x  + a_7*x
+
+Il est possible de convertir une expression en une fonction numpy, ce qui permet de la tracer facilement ou de faire des calculs dessus : 
+
+.. plot::
+    :include-source:
+
+    from matplotlib.pyplot import figure
+    from numpy import linspace
+    from sympy import Symbol, cos, sqrt, diff, lambdify
+
+    x = Symbol('x')
+    f = cos(sqrt(1+x**2))**5
+    f_seconde = diff(f, x, x)
+    f_seconde_numpy = lambdify(x, f_seconde, 'numpy')
+
+
+    X = linspace(-np.pi/2, np.pi/2, 100) 
+    Y = f_seconde_numpy(X)
+    fig = figure(figsize=(6, 3)) 
+    ax = fig.subplots(1, 1)
+    ax.plot(X,Y)
+    ax.set_title('Derivée seconde de {}'.format(f))
+
+
+Enfin, notons que l'on peut définir n'importe quelle expression formelle avec sympy. La package ``sympy.physics.quantum`` permet par exemple de manipuler des opérateurs ou des états quantique. 

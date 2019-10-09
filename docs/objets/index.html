@@ -1,0 +1,524 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>4. Programmation orientée objet &#8212; Documentation Python pour la physique 2019-2020</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="5. Gérer un projet en python" href="../projets/index.html" />
+    <link rel="prev" title="3. Eléments du langage Python" href="../langage/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="programmation-orientee-objet">
+<h1>4. Programmation orientée objet<a class="headerlink" href="#programmation-orientee-objet" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="les-objets">
+<h2>4.1. Les objets<a class="headerlink" href="#les-objets" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous avons utilisé ce terme auparavant pour désigner de façon générique
+ce que contient une variable : un nombre, une liste, une chaîne de
+caractère, une fonction, etc. Il est possible en Python de créer des objets dont le
+type est personnalisé. Ces objets auront pour objectif de stocker des
+données et de pouvoir les traiter à l’aide de méthodes que l’on aura définies.</p>
+<p>Nous allons illustrer dans ce chapitre l’utilisation d’objets pour réaliser un
+annuaire personnalisé.</p>
+</div>
+<div class="section" id="les-attributs">
+<h2>4.2. Les attributs<a class="headerlink" href="#les-attributs" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Voici un exemple :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Personne</span><span class="p">():</span>
+    <span class="n">nom</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Que l’on peut utiliser de la façon suivante :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span> <span class="o">=</span> <span class="n">Personne</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="s2">&quot;Dupont&quot;</span> <span class="c1"># modification de l&#39;attribut</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">prenom</span> <span class="o">=</span> <span class="s2">&quot;Jean&quot;</span> <span class="c1"># On peut rajouter un attribut</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">jean</span><span class="o">.</span><span class="n">nom</span><span class="p">)</span>
+<span class="go">Dupont</span>
+</pre></div>
+</div>
+<p>Nous avons tout d’abord créé un nouveau type d’objet. Il s’agit du
+type <code class="docutils literal notranslate"><span class="pre">Personne</span></code>. On appelle cela une <em>class</em>. Cette class contient
+pour l’instant un <em>attribut</em> : le nom. Pour créer un objet, on
+appelle le nom de la class. On peut lire ou écrire un attribut
+simplement. Cet objet est donc modifiable (<em>mutable</em>). On peut aussi rajouter un attribut
+(ici, le prénom) à l’objet.</p>
+<p>Pour cet exemple, nous aurions pu utiliser une liste (ou un tuple)
+pour stocker le nom et le prénom dans une seule variable, mais l’objet
+rend le code beaucoup plus lisible (<code class="docutils literal notranslate"><span class="pre">jean.nom</span></code> est plus explicite
+que jean[0]). C’est un premier avantage.</p>
+</div>
+<div class="section" id="les-methodes">
+<h2>4.3. Les méthodes<a class="headerlink" href="#les-methodes" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous avons vu que les attributs permettent de stocker les informations.</p>
+<p>On peut alors imaginer la création de fonctions utilisant ces objets :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bonjour</span><span class="p">(</span><span class="n">personne</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">,</span> <span class="n">personne</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="n">personne</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plutôt que de définir une fonction indépendamment de l’objet, il est
+possible d’attacher cette fonction à l’objet. C’est ce qu’on appelle
+une méthode</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Personne</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">bonjour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
+
+<span class="n">jean</span> <span class="o">=</span> <span class="n">Personne</span><span class="p">()</span>
+<span class="n">jean</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="s2">&quot;Dupont&quot;</span>
+<span class="n">jean</span><span class="o">.</span><span class="n">prenom</span> <span class="o">=</span> <span class="s2">&quot;Jean&quot;</span>
+<span class="n">jean</span><span class="o">.</span><span class="n">bonjour</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Toute fonction définie dans le corps de la class est une méthode. Le
+premier argument de la méthode est l’objet lui même que l’on nomme
+conventionnellement <code class="docutils literal notranslate"><span class="pre">self</span></code>. L’appel d’une méthode se fait de la
+façon suivante : <code class="docutils literal notranslate"><span class="pre">objet.nom_methode(tous_les_arguments_sauf_self)</span></code>.</p>
+<p>On voit ici un deuxième avantage de l’utilisation d’objet : la
+variable contient des fonctions (les méthodes). L’utilisateur de la
+variable ne doit pas ce soucier de la façon de réaliser une
+fonction ni de l’importer. Il fait confiance à la variable qui sait comment
+faire. Ceci permet en particulier d’avoir pour deux variables
+différentes, deux méthodes différentes ayant le même nom.</p>
+</div>
+<div class="section" id="methodes-speciales">
+<h2>4.4. Méthodes spéciales<a class="headerlink" href="#methodes-speciales" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Il existe plusieurs méthodes qui ont des rôles bien précis</p>
+<div class="section" id="methode-init">
+<h3>4.4.1. Méthode __init__<a class="headerlink" href="#methode-init" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Cette méthode sera appelée automatiquement lors de la création de
+l’objet. On peut l’utiliser pour initialiser des attributs :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Personne</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">=</span> <span class="n">prenom</span>
+    <span class="k">def</span> <span class="nf">bonjour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ce qui donne :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span> <span class="o">=</span> <span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;Dupont&quot;</span><span class="p">,</span> <span class="s2">&quot;Jean&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">bonjour</span><span class="p">()</span>
+<span class="go">Bonjour Jean Dupont !</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="methode-repr">
+<h3>4.4.2. Méthode <code class="docutils literal notranslate"><span class="pre">__repr__</span></code><a class="headerlink" href="#methode-repr" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Cette méthode sert a représenter l’objet sous forme d’une chaîne de
+caractère. Elle est utilisé par la fonction <code class="docutils literal notranslate"><span class="pre">print</span></code> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Personne</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">=</span> <span class="n">prenom</span>
+    <span class="k">def</span> <span class="nf">bonjour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span>
+</pre></div>
+</div>
+<p>Ce qui donne:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span> <span class="o">=</span> <span class="n">Personne</span><span class="p">(</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;Jean&quot;</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;Dupont&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">jean</span><span class="p">)</span>
+<span class="go">Jean Dupont</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Il existe aussi la méthode <code class="docutils literal notranslate"><span class="pre">__str__</span></code> qui par défaut renverra la même chose que <code class="docutils literal notranslate"><span class="pre">__repr__</span></code>. Cette méthode peut être utlisée pour
+renvoyé une chaîne plus simple est lisible que <code class="docutils literal notranslate"><span class="pre">__repr__</span></code>. Par exemple, pour une chaîne de caractère, le <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> rajoute des guillemets pour signifier qu’il n’s’agit d’une chaîne de caractère, mais pas le <code class="docutils literal notranslate"><span class="pre">__str__</span></code>:</p>
+<div class="last highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;Pierre&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="o">==</span><span class="s2">&quot;&#39;Pierre&#39;&quot;</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;Pierre&#39;</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="exemple">
+<h2>4.5. Exemple<a class="headerlink" href="#exemple" title="Lien permanent vers ce titre">¶</a></h2>
+<p>On veut pouvoir créer des liens d’amitié (à la facebook) entre les
+personnes. Ainsi chaque personnes a un ensemble d’amis. Cette ensemble,
+initialement vide, est créé au moment de l’initialisation de l’objet.
+Il faut alors pouvoir rajouter un ami ou afficher la liste des amis :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Personne</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">=</span> <span class="n">prenom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">liste_amis</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">bonjour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">ajoute_ami</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ami</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">liste_amis</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ami</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">affiche_amis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Les amis de&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(),</span> <span class="s2">&quot;sont :&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ami</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">liste_amis</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">ami</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span>
+</pre></div>
+</div>
+<p>Que l’on utilise de la façon suivante :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span> <span class="o">=</span> <span class="n">Personne</span><span class="p">(</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;Jean&quot;</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;Dupont&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jacques</span> <span class="o">=</span> <span class="n">Personne</span><span class="p">(</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;Jacques&quot;</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;Dupond&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pierre</span> <span class="o">=</span> <span class="n">Personne</span><span class="p">(</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;Pierre&quot;</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;Martin&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">ajoute_ami</span><span class="p">(</span><span class="n">jacques</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">ajoute_ami</span><span class="p">(</span><span class="n">pierre</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">affiche_amis</span><span class="p">()</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="go">Les amis de Jean Dupont sont :</span>
+<span class="go">Jacques Dupond</span>
+<span class="go">Pierre Martin</span>
+</pre></div>
+</div>
+<div class="admonition" id="exo-0">
+<p class="first admonition-title">Exercice</p>
+<p class="last">Les amis de mes amis sont mes amis ! Écrire (en trois lignes) une
+méthode qui ajoute automatiquement les amis de mes amis à mes amis.</p>
+</div>
+</div>
+<div class="section" id="heritage">
+<h2>4.6. Héritage<a class="headerlink" href="#heritage" title="Lien permanent vers ce titre">¶</a></h2>
+<p>C’est le dernier point important concernant les objets en Python. Nous
+avons vu comment à l’aide du mot clé <code class="docutils literal notranslate"><span class="pre">class</span></code> définir une classe
+d’objet. Dans cette classe, nous avons défini l’ensemble des
+attributs et des méthodes. Il est cependant possible d’hériter des
+méthodes d’une autre classe - ce qui permet d’avoir plusieurs classes
+possédant des méthodes identiques.</p>
+<p>Continuons notre exemple : suivant la nationalité, je souhaite pouvoir
+écrire un message de bonjour différent. Pour cela, je vais créer une
+classe PersonneFrancaise et PersonneAnglaise :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Personne</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">=</span> <span class="n">prenom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">liste_ami</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">ajoute_ami</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ami</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">liste_ami</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ami</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">affiche_amis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Les amis de&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(),</span> <span class="s2">&quot;sont :&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ami</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">liste_amis</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">ami</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span>
+
+<span class="k">class</span> <span class="nc">PersonneAnglaise</span><span class="p">(</span><span class="n">Personne</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bonjour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">PersonneFrancaise</span><span class="p">(</span><span class="n">Personne</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bonjour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ce qui donne :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">john</span> <span class="o">=</span> <span class="n">PersonneAnglaise</span><span class="p">(</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;John&quot;</span><span class="p">,</span> <span class="n">nom</span><span class="o">=</span><span class="s2">&quot;Dupont&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">john</span><span class="o">.</span><span class="n">bonjour</span><span class="p">()</span>
+<span class="go">Hello John Dupont !</span>
+</pre></div>
+</div>
+<p>Du côté de l’utilisateur, celui qui reçoit la variable <code class="docutils literal notranslate"><span class="pre">john</span></code> ne veut pas savoir si
+<code class="docutils literal notranslate"><span class="pre">john</span></code> est français ou anglais, il ne veut même pas savoir comment
+dire bonjour à un anglais. Par contre, il sait que pour dire bonjour à
+john, il suffit de faire <code class="docutils literal notranslate"><span class="pre">john.bonjour()</span></code>.</p>
+<p>Du côté du programmeur, on applique ici le principe DRY (Don’t Repeat Yourself), ou le principe
+de ne pas faire du copier-coller dans son code. Les méthodes qui sont communes ne sont pas dupliquées.</p>
+</div>
+<div class="section" id="autres-methodes-speciales">
+<h2>4.7. Autres méthodes spéciales<a class="headerlink" href="#autres-methodes-speciales" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="operateurs-binaires">
+<h3>4.7.1. Opérateurs binaires<a class="headerlink" href="#operateurs-binaires" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les méthodes __add__, __mul__, __sub__, __truediv__ sont utilisées pour implémenter le <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code> et <code class="docutils literal notranslate"><span class="pre">/</span></code> entre deux objets. Lorsque l’on fait par exemple <code class="docutils literal notranslate"><span class="pre">a+b</span></code>, alors l’interpréteur va appeler <code class="docutils literal notranslate"><span class="pre">a.__add__(b)</span></code>. Ceci nous permet donc de donner le sens que l’on souhaite à n’importe quel opérateur binaire.</p>
+<p>D’autres méthodes spéciales existe pour tous les opérateurs binaires (c.f. <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html">https://docs.python.org/3/reference/datamodel.html</a>).</p>
+<p>Ceci permet, par exemple d’imiter un type numérique - mais peut être utilisé pour n’importe quel autre objet pour simplifier la création d’un objet. C’est par exemple ce que l’on voit implicitement lorsque l’on fait un <code class="docutils literal notranslate"><span class="pre">+</span></code> entre deux listes ou deux chaînes de caractères.</p>
+<p>Notons enfin que pour toutes méthodes, il existe une version réciproque (__radd__, __rmul__, etc.). Cette méthode est appelée lorsque la première méthode échoue (concrètement en revoyant NotImplemented). Par exemple <code class="docutils literal notranslate"><span class="pre">a+b</span></code> appelle d’abord <code class="docutils literal notranslate"><span class="pre">a.__add__(b)</span></code>. Si cette méthode renvoie NotImplemented alors <code class="docutils literal notranslate"><span class="pre">b.__radd__(a)</span></code> est appelé. Ceci permet donc à un nouveau type de donnée de fonctionner avec un autre type, sans que celui-ci soit modifié. Par exemple la syntaxe suivante fonctionne <code class="docutils literal notranslate"><span class="pre">2*'pa'</span></code>, on se doute bien que ce n’est pas la type int qui implémente sa multiplication par une chaîne de caractère, mais bien la chaîne de caractère qui sait quoi faire lorsqu’elle est multipliée par un entier.</p>
+</div>
+<div class="section" id="emulation-des-conteneur">
+<h3>4.7.2. Émulation des conteneur<a class="headerlink" href="#emulation-des-conteneur" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il existe plusieurs type de conteneur en Python, par exemple les listes, les tuples, les dictionnaires, etc. Ils on commun que l’on peut extraire un élément à l’aide de la syntaxe <code class="docutils literal notranslate"><span class="pre">a[key]</span></code>. On peut aussi vouloir changer un élément <code class="docutils literal notranslate"><span class="pre">a[key]</span> <span class="pre">=</span> <span class="pre">val</span></code> ou l’effacer <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">a[key]</span></code>. Toutes ces syntaxes correspondent à des méthode de l’objet <code class="docutils literal notranslate"><span class="pre">a</span></code>. Ainsi :</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">a[key]</span></code> correspond à a.__getitem__(self, key)</li>
+<li><code class="docutils literal notranslate"><span class="pre">a[key]</span> <span class="pre">=</span> <span class="pre">val</span></code> correspond à a.__setitem__(self, key, val)</li>
+<li><code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">a[key]</span></code> correspond à a.__delitem__(self, key)</li>
+<li><code class="docutils literal notranslate"><span class="pre">len(a)</span></code> correspond à a.__len__(self)</li>
+<li><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">elm</span> <span class="pre">in</span> <span class="pre">a</span></code> correspond à <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">elm</span> <span class="pre">in</span> <span class="pre">a.__iter__()</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="attribut-et-property">
+<h2>4.8. Attribut et property<a class="headerlink" href="#attribut-et-property" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Il est important de distinguer les attributs de classe et le attribut d’objet. Lorsque l’on définit une classe, tous les attributs sont des attributs de la classe. Lorsque l’on assigne un attribut à un objet, on crée alors un attribut pour l’objet. Concrètement, cet attribut est stocké dans un dictionnaire créé avec l’objet. Lorsque l’on veut obtenir un attribut, l’interpréteur renvoie l’attribut de l’objet si celui ci existe et l’attribut de la classe de l’objet sinon.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Test</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+<span class="n">test1</span> <span class="o">=</span> <span class="n">Test</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">test1</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">test1</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">test2</span> <span class="o">=</span> <span class="n">Test</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ce qui donne :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test2</span><span class="o">.</span><span class="n">b</span>
+<span class="go">[20]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test2</span><span class="o">.</span><span class="n">c</span>
+<span class="go">[10, 3, 20]</span>
+</pre></div>
+</div>
+<p>Dans ce cas, <code class="docutils literal notranslate"><span class="pre">test1.a</span></code> : attribut de la classe; <code class="docutils literal notranslate"><span class="pre">test1.b</span></code> attribut de l’objet après le <code class="docutils literal notranslate"><span class="pre">__init__</span></code>; <code class="docutils literal notranslate"><span class="pre">test1.c</span></code> attribut de la classe.</p>
+<p>Nous avons vu ici deux mécanismes différents lorsque l’on fait <code class="docutils literal notranslate"><span class="pre">obj.attr</span></code> : si <code class="docutils literal notranslate"><span class="pre">obj.__dict__</span></code> possède la clé <code class="docutils literal notranslate"><span class="pre">&quot;attr&quot;</span></code> alors on renvoie <code class="docutils literal notranslate"><span class="pre">obj.__dict__[&quot;attr&quot;]</span></code>, sinon on appelle <code class="docutils literal notranslate"><span class="pre">type(obj).attr</span></code>. Il existe un troisième mécanisme : si aucune des deux méthodes en fonctionne, et si l’objet possède une méthode __getattr__ alors cette méthode est appelée:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Test</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">==</span><span class="s1">&#39;c&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">3</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Test</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Ce qui donne:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">a</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">b</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">c</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>Un quatrième mécanisme existe, il s’agit des property. Une poperty est une fonction qui est appelé lorsque l’on accède à un attribut. Lorsqu’une classe possède un attribut qui est une property, alors c’est ce résultat qui est renvoyé à la place de l’attribut. Par exemple:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Test</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nom</span><span class="p">,</span> <span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">=</span> <span class="n">prenom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nom</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nom_complet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nom</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Test</span><span class="p">(</span><span class="s1">&#39;Dupond&#39;</span><span class="p">,</span> <span class="s1">&#39;Jean&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ce qui donne:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">nom_complet</span>
+<span class="go">&#39;Jean Dupond&#39;</span>
+</pre></div>
+</div>
+<p>De façon similaire, l’affectation d’un objet à un attribut peut être spécifié à l’aide de la méthode <code class="docutils literal notranslate"><span class="pre">__setattr__</span></code>, ou d’un <code class="docutils literal notranslate"><span class="pre">setter</span></code> dans le cas d’une property. On peut par exemple utiliser ce mécanisme pour protéger un attribut :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Test</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percent</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">percent</span> <span class="o">=</span> <span class="n">percent</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">percent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_percent</span>
+
+    <span class="nd">@percent.setter</span>
+    <span class="k">def</span> <span class="nf">percent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span><span class="o">&lt;</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">val</span><span class="o">&gt;</span><span class="mi">100</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Percent should be between 0 and 100&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_percent</span> <span class="o">=</span> <span class="n">val</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">Test</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Il existe un convention en Python qui est que les attributs commençant par une underscore sont privés, c’est à dire qu’ils ne doivent pas être utilisés en dehors de la définition de la classe. A la différence d’autre langage où des attributs privés sont contraint par le compilateur, il s’agit ici uniquement d’un convention. Dans l’exemple suivant, on peut toujours appeler <code class="docutils literal notranslate"><span class="pre">t._percent</span></code> et même faire librement <code class="docutils literal notranslate"><span class="pre">t._percent</span> <span class="pre">=</span> <span class="pre">200</span></code>.</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>4.9. Exemple<a class="headerlink" href="#id1" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Voici un exemple de simulation d’un nombre complexe</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">atan2</span>
+
+<span class="k">class</span> <span class="nc">Complex</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partie_reelle</span><span class="p">,</span> <span class="n">partie_imaginaire</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">real</span> <span class="o">=</span> <span class="n">partie_reelle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ima</span> <span class="o">=</span> <span class="n">partie_imaginaire</span>
+
+    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">+</span><span class="si">{}</span><span class="s1">i&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">+</span><span class="si">{}</span><span class="s1">i&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">i&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Complexe(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Complex</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Complex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">real</span><span class="o">+</span><span class="n">other</span><span class="o">.</span><span class="n">real</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="o">+</span><span class="n">other</span><span class="o">.</span><span class="n">ima</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Complex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">real</span><span class="o">+</span><span class="n">other</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">other</span>
+
+    <span class="c1"># idem pour __mul__, __truediv__, __sub__, __pow__, __neg__</span>
+    <span class="c1"># et leur reciproque</span>
+
+    <span class="k">def</span> <span class="nf">conj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Complex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">theta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">atan2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ImaginairePur</span><span class="p">(</span><span class="n">Complex</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">real</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ima</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">i&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ima</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="quand-faut-il-utiliser-des-objets">
+<h2>4.10. Quand faut-il utiliser des objets ?<a class="headerlink" href="#quand-faut-il-utiliser-des-objets" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L’idée générale de l’utilisation d’objet est de supprimer la difficulté pour l’utilisateur et de la déplacer au niveau de la
+définition des méthodes de la classe. Dans cette méthode, on aura accès à la plupart des paramètres nécessaires pour exécuter une action.</p>
+<p>La difficulté n’est généralement pas de savoir quand il faut utiliser une objet (le réponse est tout le temps!), mais de réussir à identifier dans un problème quels sont les objets à définir.</p>
+<p>Les objets permettent souvent de décrire des objets réel dont la classe est le concept. Voici quelques exemples :</p>
+<ul class="simple">
+<li>Un livre: C’est un objet qui possède comme attribut : un titre, auteur, … . Mais aussi une liste de chapitres, lesquels ont un titre et des parties, … On peut alors imaginer une méthode qui renvoie un sommaire du livre (méthode avec comme argument la profondeur que l’on souhaite du sommaire). Une méthode qui renvoie le nombre de chapitre, …</li>
+<li>Un circuit électronique : il y a des composants électronique et des connexions entre les composants. Pour les composants, on aura plusieurs classes qui définiront chacune un type de composant (dipôle linéaire passif, transistor, amplificateur opérationnel, …). Chaque composant aura des pattes (un autre type d’objet). Une connexion rassemblera les pattes des composants. L’objectif de ces objets est de décrire complètement le circuit électronique. On pourra alors imaginer des méthodes plus ou moins complexes : faire une liste triée des composants que l’on devra acheter ou calculer la réponse impulsionnel du circuit…</li>
+<li>Un instrument de mesure : par exemple un oscilloscope, il aura des méthodes pour changer l’échelle verticale ou horizontale, récupérer la courbe, etc.</li>
+<li>On souhaite modéliser le système solaire : on pourra créer une classe Planete et une classe Systeme. Une planète contient un nom et une masse. Le système enregistrera pour chaque planète qu’on lui ajoute sa position et sa vitesse. Le système sera capable d’être représenté graphiquement. Il pourra créer l’ensemble d’équation différentiel qui sera ensuite utilisé par un solveur afin de connaître la position des planète à un autre instant. Dans cet exemple, l’utilisation d’objet est d’aucune utilité pour la résolution en elle même du problème (qui est un exercice classique). Par contre, elle permet de fournir une interface avec l’utilisateur qui va facilité l’entrée des paramètres ou leur visualisation.</li>
+<li>Les objets sont utilisés pour décrire des structures complexes dans un ordinateur : par exemple la fenêtre de l’interface graphique d’une application est un objet (qui contient d’autres objets comme les boutons, les menus, …). En python, Matplotlib représente une figure par un objet.</li>
+<li>En physique, on pourra utiliser un objet pour représenter l’ensemble des paramètres d’un problème ou les résultats d’une mesure. Par exemple, l’image prise par un télescope sera un objet qui contiendra l’image, mais aussi le moment de la prise de vue, sa durée, l’orientation du télescope. Cet objet devra pouvoir être enregistré sur un fichier et créé à partir de ce fichier. Une autre classe permettra de faire une analyse de cette image. Elle s’initialisera avec une image et aura des méthodes pour faire l’analyse (appliquer des filtres, mesurer des distances entre étoiles, …).</li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Python pour la physique</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../prise_en_main/index.html">1. Prise en main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_type/index.html">2. Les types de données en Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../langage/index.html">3. Eléments du langage Python</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Programmation orientée objet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#les-objets">4.1. Les objets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#les-attributs">4.2. Les attributs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#les-methodes">4.3. Les méthodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#methodes-speciales">4.4. Méthodes spéciales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exemple">4.5. Exemple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#heritage">4.6. Héritage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#autres-methodes-speciales">4.7. Autres méthodes spéciales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#attribut-et-property">4.8. Attribut et property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">4.9. Exemple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quand-faut-il-utiliser-des-objets">4.10. Quand faut-il utiliser des objets ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../projets/index.html">5. Gérer un projet en python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outils_pour_la_science/index.html">6. Outils pour la science</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../langage/index.html" title="Chapitre précédent">3. Eléments du langage Python</a></li>
+      <li>Next: <a href="../projets/index.html" title="Chapitre suivant">5. Gérer un projet en python</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Recherche rapide</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Pierre Cladé.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/objets/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

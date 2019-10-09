@@ -1,0 +1,183 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>6.3. Autres librairies scientifiques &#8212; Documentation Python pour la physique 2019-2020</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="6.2. Graphics in Python" href="graphique.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="autres-librairies-scientifiques">
+<h1>6.3. Autres librairies scientifiques<a class="headerlink" href="#autres-librairies-scientifiques" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="scipy">
+<h2>6.3.1. Scipy<a class="headerlink" href="#scipy" title="Lien permanent vers ce titre">¶</a></h2>
+<p>La librairie scipy regroupe un grand nombre d’algorithme utilisé pour résoudre des problèmes numériques. Elle vient en complément de numpy. Numpy va contenir uniquement des algorithme de base alors que scipy se veut être exhaustive. On trouvera dans scipy, en autre:</p>
+<ul class="simple">
+<li>Toutes les fonctions spéciales (bessel, elliptique, …)</li>
+<li>Des algorithmes d’optimisation (minimum, moindre carré, …)</li>
+<li>Des algorithmes pour résoudre des équations différentielles (méthodes avec pas adaptatif, …)</li>
+<li>Algèbre linéaire (diagonalisation, …)</li>
+<li>Traitement du signal (densité spectrale de puissance, filtre numérique, …)</li>
+</ul>
+<p>Beaucoup d’algorithme de scipy (et de numpy) sont issus de librairie open source écrite en C ou Fortran et optimisées depuis plusieurs années. Il est illusoire d’essayer de faire mieux pour résoudre un problème générique.</p>
+</div>
+<div class="section" id="sympy">
+<h2>6.3.2. Sympy<a class="headerlink" href="#sympy" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Sympy est la librairie de calcul formel de référence pour Python. Elle permet de manipuler des expressions algébriques et de faire des opération dessus. Elle n’est pas au niveau de Mathematica, mais fonctionne bien.</p>
+<p>Voici quelques exemples :</p>
+<blockquote>
+<div><p>from sympy import *
+init_printing() # Pour un affichage graphique</p>
+<p>x = Symbol(“x”)
+a = exp(-x**2)
+pprint(a.series(x))
+pprint(a.diff(x))</p>
+</div></blockquote>
+<p>On peut facilement utiliser la syntaxe de Python pour générer des expressions sympy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># polynome d&#39;ordre 10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">coef</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;a_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">res</span> <span class="o">+=</span> <span class="n">coef</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">i</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="go">                   2        3        4        5        6        7</span>
+<span class="go">a_0 + a_1*x + a_2*x  + a_3*x  + a_4*x  + a_5*x  + a_6*x  + a_7*x</span>
+</pre></div>
+</div>
+<p>Il est possible de convertir une expression en une fonction numpy, ce qui permet de la tracer facilement ou de faire des calculs dessus :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">figure</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">lambdify</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">**</span><span class="mi">5</span>
+<span class="n">f_seconde</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">f_seconde_numpy</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f_seconde</span><span class="p">,</span> <span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
+
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">f_seconde_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Derivée seconde de {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../outils_pour_la_science/librairies-1.py">Source code</a>)</p>
+<div class="figure">
+<img alt="../_images/librairies-1.png" src="../_images/librairies-1.png" />
+</div>
+<p>Enfin, notons que l’on peut définir n’importe quelle expression formelle avec sympy. La package <code class="docutils literal notranslate"><span class="pre">sympy.physics.quantum</span></code> permet par exemple de manipuler des opérateurs ou des états quantique.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Python pour la physique</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../prise_en_main/index.html">1. Prise en main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_type/index.html">2. Les types de données en Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../langage/index.html">3. Eléments du langage Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../objets/index.html">4. Programmation orientée objet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../projets/index.html">5. Gérer un projet en python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Outils pour la science</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="numpy.html">6.1. Numpy Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphique.html">6.2. Graphics in Python</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. Autres librairies scientifiques</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">6. Outils pour la science</a><ul>
+      <li>Previous: <a href="graphique.html" title="Chapitre précédent">6.2. Graphics in Python</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Recherche rapide</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Pierre Cladé.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/outils_pour_la_science/librairies.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
