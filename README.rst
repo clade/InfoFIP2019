@@ -1,6 +1,6 @@
 Informatique et physique expérimentale
 ======================================
 
-Les notes de cours sont disponibles `en html <https://clade.github.io/InfoFip2019/>`_
+Les notes de cours sont disponibles `en html <https://clade.github.io/InfoFIP2019/>`_
 
 
