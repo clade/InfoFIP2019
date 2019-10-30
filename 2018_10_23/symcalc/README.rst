@@ -4,7 +4,7 @@ TD Calcul formel
 Exemple d'utilisation
 ---------------------
 
-Voci un exemple simple : 
+Voci un exemple simple :: 
 
     from symcalc import *
     x = Symbol('x')
@@ -18,7 +18,7 @@ Voci un exemple simple :
 Test
 ----
 
-La librairie utilise unittest. Pour effectuer le test : 
+La librairie utilise unittest. Pour effectuer le test :: 
 
     python -m unittest discover
 
