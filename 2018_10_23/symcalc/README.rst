@@ -12,6 +12,7 @@ Voci un exemple simple :
 
     expr = sin(x*x + y*y)*cos(x)
     print(expr)
+    print(expr.evaluate(x=1, y=2))
     print(expr.diff(x))
 
 Test
