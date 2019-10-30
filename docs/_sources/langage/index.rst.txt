@@ -155,7 +155,7 @@ A l'intérieur d'une fonction, une variable est soit locale soit globale
 
 
 
-.. _decorateur
+.. decorateur
 
 Décorateur
 ----------

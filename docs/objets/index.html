@@ -9,11 +9,12 @@
     <title>4. Programmation orientée objet &#8212; Documentation Python pour la physique 2019-2020</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
     <link rel="next" title="5. Gérer un projet en python" href="../projets/index.html" />
@@ -30,8 +31,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="programmation-orientee-objet">
@@ -163,7 +162,7 @@ renvoyé une chaîne plus simple est lisible que <code class="docutils literal n
 <div class="section" id="exemple">
 <h2>4.5. Exemple<a class="headerlink" href="#exemple" title="Lien permanent vers ce titre">¶</a></h2>
 <p>On veut pouvoir créer des liens d’amitié (à la facebook) entre les
-personnes. Ainsi chaque personnes a un ensemble d’amis. Cette ensemble,
+personnes. Ainsi chaque personnes a un ensemble d’amis. Cet ensemble,
 initialement vide, est créé au moment de l’initialisation de l’objet.
 Il faut alors pouvoir rajouter un ami ou afficher la liste des amis :</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Personne</span><span class="p">():</span>
@@ -191,7 +190,7 @@ Il faut alors pouvoir rajouter un ami ou afficher la liste des amis :</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">ajoute_ami</span><span class="p">(</span><span class="n">pierre</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">affiche_amis</span><span class="p">()</span>  <span class="c1"># doctest: +SKIP</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jean</span><span class="o">.</span><span class="n">affiche_amis</span><span class="p">()</span>  
 <span class="go">Les amis de Jean Dupont sont :</span>
 <span class="go">Jacques Dupond</span>
 <span class="go">Pierre Martin</span>
@@ -436,42 +435,34 @@ définition des méthodes de la classe. Dans cette méthode, on aura accès à l
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Python pour la physique</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../prise_en_main/index.html">1. Prise en main</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../data_type/index.html">2. Les types de données en Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../langage/index.html">3. Eléments du langage Python</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Programmation orientée objet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#les-objets">4.1. Les objets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-attributs">4.2. Les attributs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-methodes">4.3. Les méthodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#methodes-speciales">4.4. Méthodes spéciales</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exemple">4.5. Exemple</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#heritage">4.6. Héritage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#autres-methodes-speciales">4.7. Autres méthodes spéciales</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#attribut-et-property">4.8. Attribut et property</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">4.9. Exemple</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quand-faut-il-utiliser-des-objets">4.10. Quand faut-il utiliser des objets ?</a></li>
+  <h3><a href="../index.html">Table des Matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. Programmation orientée objet</a><ul>
+<li><a class="reference internal" href="#les-objets">4.1. Les objets</a></li>
+<li><a class="reference internal" href="#les-attributs">4.2. Les attributs</a></li>
+<li><a class="reference internal" href="#les-methodes">4.3. Les méthodes</a></li>
+<li><a class="reference internal" href="#methodes-speciales">4.4. Méthodes spéciales</a><ul>
+<li><a class="reference internal" href="#methode-init">4.4.1. Méthode __init__</a></li>
+<li><a class="reference internal" href="#methode-repr">4.4.2. Méthode <code class="docutils literal notranslate"><span class="pre">__repr__</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../projets/index.html">5. Gérer un projet en python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../outils_pour_la_science/index.html">6. Outils pour la science</a></li>
+<li><a class="reference internal" href="#exemple">4.5. Exemple</a></li>
+<li><a class="reference internal" href="#heritage">4.6. Héritage</a></li>
+<li><a class="reference internal" href="#autres-methodes-speciales">4.7. Autres méthodes spéciales</a><ul>
+<li><a class="reference internal" href="#operateurs-binaires">4.7.1. Opérateurs binaires</a></li>
+<li><a class="reference internal" href="#emulation-des-conteneur">4.7.2. Émulation des conteneur</a></li>
 </ul>
-
+</li>
+<li><a class="reference internal" href="#attribut-et-property">4.8. Attribut et property</a></li>
+<li><a class="reference internal" href="#id1">4.9. Exemple</a></li>
+<li><a class="reference internal" href="#quand-faut-il-utiliser-des-objets">4.10. Quand faut-il utiliser des objets ?</a></li>
+</ul>
+</li>
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -481,6 +472,13 @@ définition des méthodes de la classe. Dans cette méthode, on aura accès à l
   </ul></li>
 </ul>
 </div>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/objets/index.rst.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Recherche rapide</h3>
     <div class="searchformwrapper">
@@ -493,14 +491,6 @@ définition des méthodes de la classe. Dans cette méthode, on aura accès à l
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -509,8 +499,8 @@ définition des méthodes de la classe. Dans cette méthode, on aura accès à l
       &copy;2016, Pierre Cladé.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="../_sources/objets/index.rst.txt"

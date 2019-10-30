@@ -347,7 +347,28 @@ Numba is a compiler for python. It is even simpler to use than cython, because n
         return out
 
 
+Here the signature of the function is specified explicitly. You can also omit it, and numba will infer it for you the first time you use the function (and therefore compile it then). To specify the signature, use the following syntax : ``out_type(arg1_type, arg2_type, ...)``. Usual types are ``int64`` (or ``uint64`` : unsigned int), ``float64`` or ``complex128``. If your input or output is an array, then use ``type[:]``. For example :: 
 
+    from numba import jit, float64
+    @jit(float64[:](float64[:], float64[:])
+    def sum(x, y):
+        return x + y
+
+
+Another very useful function of numba is ``vectorize``. It allows to create a function compatible with numpy using a function written for scalar ::
+
+    from numba import vectorize, float64
+
+    @vectorize([float64(float64)])
+    def my_abs(x):
+        if x>0:
+            return x
+        else:
+            return -x
+
+Using numba.vectorize is a convenient and fast way to make function compatible with numpy. It is much faster than the numpy.vectorize and much more readable than full numpy implementation of the function (using numpy.where or array mask).
+
+        
 
 
 

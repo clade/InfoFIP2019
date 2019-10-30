@@ -9,11 +9,12 @@
     <title>3. Eléments du langage Python &#8212; Documentation Python pour la physique 2019-2020</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
     <link rel="next" title="4. Programmation orientée objet" href="../objets/index.html" />
@@ -30,8 +31,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="elements-du-langage-python">
@@ -252,7 +251,7 @@
 <p>Ce qui donne :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fibonacci</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fibonacci</span><span class="p">(</span><span class="mf">5.4</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fibonacci</span><span class="p">(</span><span class="mf">5.4</span><span class="p">)</span>  
 <span class="go">AssertionError: Argument should of type &lt;class &#39;int&#39;&gt;</span>
 </pre></div>
 </div>
@@ -500,7 +499,7 @@ en connaissant uniquement la longueur des trois côtés a,b et c.</p>
 <p>Ce qui donne :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aire_triangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="go">6.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">aire_triangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aire_triangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> 
 <span class="go">ValueError: Le triangle de côtés 1, 1 et 10 n&#39;existe pas</span>
 </pre></div>
 </div>
@@ -554,37 +553,32 @@ en connaissant uniquement la longueur des trois côtés a,b et c.</p>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Python pour la physique</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../prise_en_main/index.html">1. Prise en main</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../data_type/index.html">2. Les types de données en Python</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Eléments du langage Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#expression-en-python">3.1. Expression en Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creer-des-fonctions">3.2. Créer des fonctions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-boucles">3.3. Les boucles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-exceptions">3.4. Les exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#context-managers">3.5. Context Managers</a></li>
+  <h3><a href="../index.html">Table des Matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3. Eléments du langage Python</a><ul>
+<li><a class="reference internal" href="#expression-en-python">3.1. Expression en Python</a></li>
+<li><a class="reference internal" href="#creer-des-fonctions">3.2. Créer des fonctions</a><ul>
+<li><a class="reference internal" href="#arguments-d-une-fonction">3.2.1. Arguments d’une fonction</a></li>
+<li><a class="reference internal" href="#fonction-anonyme">3.2.2. Fonction anonyme</a></li>
+<li><a class="reference internal" href="#variable-locale-globale">3.2.3. Variable locale/globale</a></li>
+<li><a class="reference internal" href="#decorateur">3.2.4. Décorateur</a></li>
+<li><a class="reference internal" href="#les-annotations">3.2.5. Les annotations</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../objets/index.html">4. Programmation orientée objet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../projets/index.html">5. Gérer un projet en python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../outils_pour_la_science/index.html">6. Outils pour la science</a></li>
+<li><a class="reference internal" href="#les-boucles">3.3. Les boucles</a><ul>
+<li><a class="reference internal" href="#boucle-for">3.3.1. Boucle for</a></li>
+<li><a class="reference internal" href="#generateurs">3.3.2. Générateurs</a></li>
 </ul>
-
+</li>
+<li><a class="reference internal" href="#les-exceptions">3.4. Les exceptions</a></li>
+<li><a class="reference internal" href="#context-managers">3.5. Context Managers</a></li>
+</ul>
+</li>
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -594,6 +588,13 @@ en connaissant uniquement la longueur des trois côtés a,b et c.</p>
   </ul></li>
 </ul>
 </div>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/langage/index.rst.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Recherche rapide</h3>
     <div class="searchformwrapper">
@@ -606,14 +607,6 @@ en connaissant uniquement la longueur des trois côtés a,b et c.</p>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -622,8 +615,8 @@ en connaissant uniquement la longueur des trois côtés a,b et c.</p>
       &copy;2016, Pierre Cladé.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="../_sources/langage/index.rst.txt"

@@ -9,11 +9,12 @@
     <title>2. Les types de données en Python &#8212; Documentation Python pour la physique 2019-2020</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
     <link rel="next" title="3. Eléments du langage Python" href="../langage/index.html" />
@@ -30,8 +31,6 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="les-types-de-donnees-en-python">
@@ -547,40 +546,31 @@ type que Python. Par exemple les nombres à virgule flottante peuvent
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Python pour la physique</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../prise_en_main/index.html">1. Prise en main</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Les types de données en Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#les-nombres">2.1. Les nombres</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-booleens-et-comparaison">2.2. Les booléens et comparaison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-chaines-de-caracteres-string">2.3. Les chaînes de caractères (string)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-listes-list">2.4. Les listes (list)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-n-uplets-tuple">2.5. Les n-uplets (tuple)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-dictionnaires-dictionnary">2.6. Les dictionnaires (dictionnary)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#les-ensembles-set">2.7. Les ensembles (set)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tableaux-numpy-numpy-array">2.8. Tableaux numpy (numpy array)</a></li>
+  <h3><a href="../index.html">Table des Matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2. Les types de données en Python</a><ul>
+<li><a class="reference internal" href="#les-nombres">2.1. Les nombres</a></li>
+<li><a class="reference internal" href="#les-booleens-et-comparaison">2.2. Les booléens et comparaison</a></li>
+<li><a class="reference internal" href="#les-chaines-de-caracteres-string">2.3. Les chaînes de caractères (string)</a><ul>
+<li><a class="reference internal" href="#creation-d-une-chaine-de-caracteres">2.3.1. Création d’une chaîne de caractères</a></li>
+<li><a class="reference internal" href="#caracteres-speciaux">2.3.2. Caractères spéciaux</a></li>
+<li><a class="reference internal" href="#manipulation-des-chaines-de-caracteres">2.3.3. Manipulation des chaînes de caractères</a></li>
+<li><a class="reference internal" href="#formatage-de-nombre">2.3.4. Formatage de nombre</a></li>
+<li><a class="reference internal" href="#les-accents">2.3.5. Les accents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../langage/index.html">3. Eléments du langage Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../objets/index.html">4. Programmation orientée objet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../projets/index.html">5. Gérer un projet en python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../outils_pour_la_science/index.html">6. Outils pour la science</a></li>
+<li><a class="reference internal" href="#les-listes-list">2.4. Les listes (list)</a></li>
+<li><a class="reference internal" href="#les-n-uplets-tuple">2.5. Les n-uplets (tuple)</a></li>
+<li><a class="reference internal" href="#les-dictionnaires-dictionnary">2.6. Les dictionnaires (dictionnary)</a></li>
+<li><a class="reference internal" href="#les-ensembles-set">2.7. Les ensembles (set)</a></li>
+<li><a class="reference internal" href="#tableaux-numpy-numpy-array">2.8. Tableaux numpy (numpy array)</a></li>
 </ul>
-
+</li>
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -590,6 +580,13 @@ type que Python. Par exemple les nombres à virgule flottante peuvent
   </ul></li>
 </ul>
 </div>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/data_type/index.rst.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Recherche rapide</h3>
     <div class="searchformwrapper">
@@ -602,14 +599,6 @@ type que Python. Par exemple les nombres à virgule flottante peuvent
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -618,8 +607,8 @@ type que Python. Par exemple les nombres à virgule flottante peuvent
       &copy;2016, Pierre Cladé.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="../_sources/data_type/index.rst.txt"

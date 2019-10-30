@@ -156,7 +156,7 @@ Exemple
 =======
 
 On veut pouvoir créer des liens d'amitié (à la facebook) entre les
-personnes. Ainsi chaque personnes a un ensemble d'amis. Cette ensemble,
+personnes. Ainsi chaque personnes a un ensemble d'amis. Cet ensemble,
 initialement vide, est créé au moment de l'initialisation de l'objet.
 Il faut alors pouvoir rajouter un ami ou afficher la liste des amis :
 
